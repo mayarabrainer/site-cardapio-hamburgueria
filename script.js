@@ -187,7 +187,23 @@ checkoutBtn.addEventListener("click", function(){
 
     cart = [];
     updateCartModal();
+    showMessage("Pedido enviado com sucesso!", "#32CD32");
 
+    
+})
+
+function clearAddressInput() {
+    
+    addressInput.value = ""
+    cartModal.style.display = "none"
+}
+
+
+
+checkoutBtn.addEventListener("click", () => {
+
+    clearAddressInput()
+    
     
 })
 
@@ -195,7 +211,7 @@ checkoutBtn.addEventListener("click", function(){
 function CheckRestauranteOpen(){
     const data = new Date();
     const hora = data.getHours();
-    return hora >= 13 && hora < 23;
+    return hora >= 12 && hora < 23;
 }
 
 const spanItem = document.getElementById("date-span")
