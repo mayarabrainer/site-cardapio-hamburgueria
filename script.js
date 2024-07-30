@@ -6,10 +6,17 @@ const cartTotal = document.getElementById("cart-total");
 const checkoutBtn = document.getElementById("checkout-btn");
 const closeModalBtn = document.getElementById("close-modal-btn");
 const cartCounter = document.getElementById("cart-count");
-const addressInput = document.getElementById("address");
-const addressWarn = document.getElementById("address-warn")
+const cepInput = document.getElementById("cep");
+const cepWarn = document.getElementById("cep-warn")
+const buscarCepBtn = document.getElementById("buscarCepBtn");
+const numeroInput = document.getElementById("numero");
+const resultado = document.getElementById("resultado");
+const adicionar = document.getElementById("adicionar");
+const enderecoCompleto = document.getElementById("enderecoCompleto");
 
 let cart = [];
+
+VMasker(cepInput).maskPattern("99999-999");
 
 cartBtn.addEventListener("click", function () {
     updateCartModal();
@@ -86,7 +93,7 @@ function updateCartModal(){
                 <div>
                     <p class="font-bold">${item.name}</p>
                     <p>Qtd: ${item.quantity}</p>
-                    <p class="font-medium mt-2">R$ ${item.price.toFixed(2)}</p>
+                    <p class="font-medium mt-2">R$ ${item.price.toFixed(2)} \n\n</p>
                 </div>
 
                 
@@ -136,15 +143,69 @@ function removeItemCart(name){
     }
 }
 
+let enderecoCompletoStr = "";
 
-addressInput.addEventListener("input", function(event){
+cepInput.addEventListener("input", function(event){
     let inputValue = event.target.value;
 
     if(inputValue !== ""){
-        addressInput.classList.remove("border-red-500")
-        addressWarn.classList.add("hidden")
+        cepInput.classList.remove("border-red-500")
+        cepWarn.classList.add("hidden")
     }
 })
+
+
+buscarCepBtn.addEventListener("click", async function(event) {
+    event.preventDefault();
+
+    const cep = cepInput.value;
+
+    if (!cep) {
+        cepWarn.classList.remove("hidden");
+        return;
+    }
+
+    cepWarn.classList.add("hidden");
+
+    try {
+        const response = await fetch(`https://api.postmon.com.br/v1/cep/${cep}`);
+        if (!response.ok) {
+            throw new Error('Erro ao buscar o CEP');
+        }
+        const data = await response.json();
+
+        resultado.innerHTML = `
+            <p><strong>CEP:</strong> ${data.cep}</p>
+            <p><strong>Logradouro:</strong> ${data.logradouro}</p>
+            <p><strong>Bairro:</strong> ${data.bairro}</p>
+            <p><strong>Cidade:</strong> ${data.cidade}</p>
+            <p><strong>Estado:</strong> ${data.estado}</p>
+        `;
+        
+        adicionar.style.display = 'block';
+    } catch (error) {
+        resultado.innerHTML = `<p>Erro: ${error.message}</p>`;
+    }
+});
+
+numeroInput.addEventListener('input', function(event) {
+    const numero = numeroInput.value;
+
+    if (!numero) {
+        enderecoCompleto.innerHTML = "";
+        showMessage("Por favor, insira o número do logradouro.", "#ef4444");
+        return;
+    }
+
+    const logradouro = resultado.querySelector('p:nth-child(2)').textContent.split(': ')[1];
+    const bairro = resultado.querySelector('p:nth-child(3)').textContent.split(': ')[1];
+    const cidade = resultado.querySelector('p:nth-child(4)').textContent.split(': ')[1];
+    const estado = resultado.querySelector('p:nth-child(5)').textContent.split(': ')[1];
+
+    enderecoCompletoStr = `${logradouro}, ${numero} - ${bairro}, ${cidade} - ${estado}`
+    enderecoCompleto.innerHTML = `<p><strong>\n\nEndereço Completo:</strong></p>
+    <p>${enderecoCompletoStr}</p>`;
+});
 
 function showMessage(message, color) {
     Toastify({
@@ -155,7 +216,7 @@ function showMessage(message, color) {
         position: "right",
         stopOnFocus: true,
         style: {
-            background: color,
+        background: color,
         },
     }).showToast();
 }
@@ -168,9 +229,9 @@ checkoutBtn.addEventListener("click", function(){
 
     if(cart.length === 0) return;
 
-    if(addressInput.value === ""){
-        addressWarn.classList.remove("hidden")
-        addressInput.classList.add("border-red-500")
+    if(cepInput.value === ""){
+        cepWarn.classList.remove("hidden")
+        cepInput.classList.add("border-red-500")
         return;
     }
 
@@ -178,34 +239,31 @@ checkoutBtn.addEventListener("click", function(){
         return (
             ` ${item.name} Quantidade: (${item.quantity}) Preço: R$${item.price}`
         )
-    }).join("")
+    }).join("\n\n\n")
 
-    const message = encodeURIComponent(cartItems)
+    const message = encodeURIComponent(`${cartItems} ${enderecoCompleto.innerText}`)
     const phone = "11914792104"
 
-    window.open(`https://wa.me/${phone}?text=${message} Endereço: ${addressInput.value}`, "_black")
+    window.open(`https://wa.me/${phone}?text=${message}`, "_black")
 
     cart = [];
     updateCartModal();
     showMessage("Pedido enviado com sucesso!", "#32CD32");
 
+    clearDataInput();
+
     
 })
 
-function clearAddressInput() {
+function clearDataInput() {
     
-    addressInput.value = ""
-    cartModal.style.display = "none"
+    cepInput.value = "";
+    resultado.innerHTML = "";
+    adicionar.style.display = "none";
+    enderecoCompleto.innerHTML = "";
+    numeroInput.value = "";
+    cartModal.style.display = "none";
 }
-
-
-
-checkoutBtn.addEventListener("click", () => {
-
-    clearAddressInput()
-    
-    
-})
 
 
 function CheckRestauranteOpen(){

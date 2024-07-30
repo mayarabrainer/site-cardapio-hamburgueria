@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-masker/1.1.1/vanilla-masker.min.js"></script>
 
     <meta property="og:type" content="website"/>
     <meta property="og:title" content="A melhor hamburgueria da regiao"/>
     <meta property="og:image" content="https://site-cardapio-hamburgueria-git-main-mayaras-projects-76bd3140.vercel.app/assets/logo1.jpg"/>
     <meta property="og:description" content="O melhor hamburguer artesanal da região"/>
     <meta property="og:site_name" content="MMAHamburgueria"/>
-
+    
     <link rel="stylesheet" href="./styles/output.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>MMA Burguer - A melhor hamburgueria da região</title>
+
 </head>
 
 
@@ -383,11 +385,21 @@
             <p class="font-bold mt-4">Endereço de entrega:</p>
             <input 
             type="text"
-            placeholder="Digite o seu endereço completo..."
-            id="address"
-            class="w-full border-2 p-1 rounded my-1">
+            placeholder="Digite seu CEP...."
+            id="cep"
+            maxlength="9"
+            class="w-cep border-2 p-1 rounded my-1">
 
-            <p class="text-red-500 hidden"  id="address-warn">Digite seu endereço completo!</p>
+            <p class="text-red-500 hidden"  id="cep-warn">Digite seu CEP!</p>
+            <button id="buscarCepBtn" type="submit" class="bg-blue-400 text-black px-4 py-1 rounded">Buscar CEP</button>
+
+            <div id="resultado" class=" hidden"></div>
+
+            <div id="adicionar" style="display: none;">
+                <input type="text" id="numero" placeholder="Número do Logradouro" class="w-full border-2 p-1 rounded my-1">
+            </div>
+
+            <div id="enderecoCompleto" class="mt-4"></div>
 
             <div class="flex items-center justify-between at-5 w-full">
                 <button id="close-modal-btn" class="bg-red-500 text-white px-4 py-1 rounded">Fechar</button>
