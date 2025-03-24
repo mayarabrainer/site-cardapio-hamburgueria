@@ -12,7 +12,7 @@
 
 🔹 TailwindCSS → Estilos modernos e responsivos com desenvolvimento ágil.
 
-##🎯 Funcionalidades
+## 🎯 Funcionalidades
 
 ✅ Visualização dos itens do cardápio com descrições e preços.
 
