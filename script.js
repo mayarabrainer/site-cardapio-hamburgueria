@@ -65,14 +65,11 @@ function addToCart(name, price) {
         })
 
     }
-
-        
+    
     updateCartModal()
     showMessage("Item adicionado com sucesso!", "#32CD32");
 
 }
-
-
 
 function updateCartModal(){
     if (!isOpen) {
@@ -116,7 +113,6 @@ function updateCartModal(){
     cartCounter.innerHTML = cart.length;
 }
 
-
 cartItemsContainer.addEventListener("click", function (event){
     if(event.target.classList.contains("remove-btn")){
         const name = event.target.getAttribute("data-name")
@@ -124,7 +120,6 @@ cartItemsContainer.addEventListener("click", function (event){
         removeItemCart(name);
     }
 })
-
 
 function removeItemCart(name){
     const index = cart.findIndex(item => item.name === name);
@@ -153,7 +148,6 @@ cepInput.addEventListener("input", function(event){
         cepWarn.classList.add("hidden")
     }
 })
-
 
 buscarCepBtn.addEventListener("click", async function(event) {
     event.preventDefault();
