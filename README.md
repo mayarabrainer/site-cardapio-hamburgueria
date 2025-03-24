@@ -1,15 +1,16 @@
-- Cardápio de Hamburgueria com API de WhatsApp
+## 🍔 Cardápio Digital para Hamburgueria com API do WhatsApp
 
-  
-- Este projeto é um cardápio digital para uma hamburgueria, que permite aos usuários fazerem pedidos e enviá-los diretamente para o WhatsApp, juntamente com o endereço de entrega.
+## 📢 Transforme a experiência dos seus clientes com um cardápio digital interativo! Com este sistema, os usuários podem escolher seus lanches favoritos, adicionar ao carrinho e finalizar o pedido diretamente pelo WhatsApp.
 
-- Tecnologias Utilizadas
-HTML: Para estruturar o conteúdo do cardápio.
-CSS: Para estilizar os elementos do cardápio.
-JavaScript: Para adicionar funcionalidades interativas e enviar os pedidos via API do WhatsApp.
-TailwindCSS: Para agilizar o desenvolvimento e garantir um design responsivo e moderno.
+## 🚀 Tecnologias Utilizadas
 
-- Funcionalidades
-Visualização dos itens do cardápio com descrições e preços.
-Adição de itens ao carrinho de compras.
-Envio de pedidos para o WhatsApp com os detalhes do pedido e endereço de entrega.
+🔹 HTML → Estruturação do conteúdo do cardápio.
+🔹 CSS → Estilização dos elementos para uma interface atrativa.
+🔹 JavaScript → Funcionalidades interativas e envio de pedidos via API do WhatsApp.
+🔹 TailwindCSS → Estilos modernos e responsivos com desenvolvimento ágil.
+
+##🎯 Funcionalidades
+
+✅ Visualização dos itens do cardápio com descrições e preços.
+✅ Adição de produtos ao carrinho de compras.
+✅ Envio do pedido via WhatsApp, incluindo os detalhes do pedido e o endereço de entrega.
